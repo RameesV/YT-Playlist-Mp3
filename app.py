@@ -38,9 +38,12 @@ def download_playlist(playlist_url, output_path=os.path.join(os.path.expanduser(
                 video_title = clean_filename(video.title)
                 video_filename = f"{video_title}.mp4"
                 audio_filename = f"{video_title}.mp3"
-
+                
                 video_stream.download(output_path=output_path, filename=video_filename)
                 convert_to_mp3(os.path.join(output_path, video_filename), os.path.join(output_path, audio_filename))
+                count += 1
+                percentage_complete = (count / total_videos) * 100
+                print(f"\n_______________________________\n|| {count}/{total_videos} || ({percentage_complete:.2f}%) || Converted: {video_filename}\n===============================")
 
                 # Try deleting the video file only if conversion is successful
                 try:
